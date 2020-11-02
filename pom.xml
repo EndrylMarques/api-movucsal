@@ -54,6 +54,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>br.com.mariojp</groupId>
 			<artifactId>agentefw</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
