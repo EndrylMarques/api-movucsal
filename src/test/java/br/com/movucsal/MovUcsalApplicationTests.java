@@ -1,10 +1,10 @@
-package br.com.milleddy.muvucsal;
+package br.com.movucsal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MuvucsalApplicationTests {
+class MovUcsalApplicationTests {
 
 	@Test
 	void contextLoads() {

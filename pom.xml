@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.milleddy</groupId>
-	<artifactId>muvucsal</artifactId>
+	<artifactId>movucsal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>muvucsal</name>
-	<description>API MuvUcsal</description>
+	<name>movucsal</name>
+	<description>API MovUcsal</description>
 
 	<properties>
 		<java.version>11</java.version>
