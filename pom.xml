@@ -35,6 +35,15 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>br.com.mariojp</groupId>
+			<artifactId>agentefw</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/agentefw.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 
 	<build>
