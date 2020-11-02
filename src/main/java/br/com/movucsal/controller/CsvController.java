@@ -17,4 +17,11 @@ public class CsvController {
             CsvService.ReadPontoCsvFile(file);
         }
     }
+
+    @PostMapping("/upload-caminho-csv")
+    public void uploadCaminhoCSVFile(@RequestParam("caminho") MultipartFile file ) throws IOException {
+        if (!file.isEmpty()) {
+            CsvService.ReadCaminhoCsvFile(file);
+        }
+    }
 }

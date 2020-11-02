@@ -1,7 +1,9 @@
 package br.com.movucsal.service;
 
 
+import br.com.movucsal.entity.Caminho;
 import br.com.movucsal.entity.Ponto;
+import br.com.movucsal.repository.CaminhoRepository;
 import br.com.movucsal.repository.PontoRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -19,8 +21,11 @@ public class CsvService {
 
     private static PontoRepository pontoRepository;
 
-    public CsvService(PontoRepository pontoRepository) {
+    private static CaminhoRepository caminhoRepository;
+
+    public CsvService(PontoRepository pontoRepository, CaminhoRepository caminhoRepository) {
         this.pontoRepository = pontoRepository;
+        this.caminhoRepository = caminhoRepository;
     }
 
     public static void ReadPontoCsvFile(MultipartFile file) throws IOException {
@@ -32,11 +37,20 @@ public class CsvService {
 
             List<Ponto> pontos = csvToBean.parse();
 
-            for (Ponto ponto : pontos){
-                System.out.println(ponto.getDescricao());
-            }
-
             pontoRepository.saveAll(pontos);
+        }
+    }
+
+    public static void ReadCaminhoCsvFile(MultipartFile file) throws IOException {
+        try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+
+            CsvToBean<Caminho> csvToBean = new CsvToBeanBuilder(reader)
+                    .withType(Ponto.class)
+                    .build();
+
+            List<Caminho> caminhos = csvToBean.parse();
+
+            caminhoRepository.saveAll(caminhos);
         }
     }
 }
