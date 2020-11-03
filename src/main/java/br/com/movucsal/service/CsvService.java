@@ -7,6 +7,7 @@ import br.com.movucsal.repository.CaminhoRepository;
 import br.com.movucsal.repository.PontoRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,16 +20,17 @@ import java.util.List;
 @Service
 public class CsvService {
 
-    private static PontoRepository pontoRepository;
+    private PontoRepository pontoRepository;
 
-    private static CaminhoRepository caminhoRepository;
+    private CaminhoRepository caminhoRepository;
 
+    @Autowired
     public CsvService(PontoRepository pontoRepository, CaminhoRepository caminhoRepository) {
         this.pontoRepository = pontoRepository;
         this.caminhoRepository = caminhoRepository;
     }
 
-    public static void ReadPontoCsvFile(MultipartFile file) throws IOException {
+    public List<Ponto> ReadPontoCsvFile(MultipartFile file) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
             CsvToBean<Ponto> csvToBean = new CsvToBeanBuilder(reader)
@@ -37,20 +39,24 @@ public class CsvService {
 
             List<Ponto> pontos = csvToBean.parse();
 
-            pontoRepository.saveAll(pontos);
+            return pontoRepository.saveAll(pontos);
+        } catch (Exception e){
+            throw new IOException(e.getMessage());
         }
     }
 
-    public static void ReadCaminhoCsvFile(MultipartFile file) throws IOException {
+    public List<Caminho> ReadCaminhoCsvFile(MultipartFile file) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
             CsvToBean<Caminho> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(Ponto.class)
+                    .withType(Caminho.class)
                     .build();
 
             List<Caminho> caminhos = csvToBean.parse();
 
-            caminhoRepository.saveAll(caminhos);
+            return caminhoRepository.saveAll(caminhos);
+        }catch (Exception e){
+            throw new IOException(e.getMessage());
         }
     }
 }
