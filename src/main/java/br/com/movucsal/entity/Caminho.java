@@ -13,11 +13,11 @@ public class Caminho {
     @Column(name = "distancia")
     private double distancia;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "fk_ponto_origem")
     private Ponto pontoOrigem;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "fk_ponto_destino")
     private Ponto pontoDestino;
 

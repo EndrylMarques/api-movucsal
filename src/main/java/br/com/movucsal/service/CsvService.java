@@ -30,7 +30,7 @@ public class CsvService {
         this.caminhoRepository = caminhoRepository;
     }
 
-    public List<Ponto> ReadPontoCsvFile(MultipartFile file) throws IOException {
+    public List<Ponto> readPontoCsvFile(MultipartFile file) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
             CsvToBean<Ponto> csvToBean = new CsvToBeanBuilder(reader)
@@ -45,7 +45,7 @@ public class CsvService {
         }
     }
 
-    public List<Caminho> ReadCaminhoCsvFile(MultipartFile file) throws IOException {
+    public List<Caminho> readCaminhoCsvFile(MultipartFile file) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
             CsvToBean<Caminho> csvToBean = new CsvToBeanBuilder(reader)
