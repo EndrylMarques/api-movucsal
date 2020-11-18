@@ -1,6 +1,6 @@
-package br.com.movucsal.repository;
+package com.milleddy.movucsal.repository;
 
-import br.com.movucsal.entity.Caminho;
+import com.milleddy.movucsal.entity.Caminho;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

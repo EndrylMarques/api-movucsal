@@ -1,13 +1,13 @@
-package br.com.movucsal;
+package com.milleddy.movucsal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MovUcsalApplication {
+public class MovucsalApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MovUcsalApplication.class, args);
+		SpringApplication.run(MovucsalApplication.class, args);
 	}
 
 }

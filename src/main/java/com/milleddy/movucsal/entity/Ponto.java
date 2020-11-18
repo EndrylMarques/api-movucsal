@@ -1,4 +1,4 @@
-package br.com.movucsal.entity;
+package com.milleddy.movucsal.entity;
 
 import com.opencsv.bean.CsvBindByName;
 
