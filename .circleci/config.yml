@@ -3,6 +3,8 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2.1
+orbs:
+  heroku: circleci/heroku@0.0.10
 jobs:
   build:
     docker:
@@ -44,4 +46,12 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git:
-          app-name: $HEROKU_PRODUCTION_APP_NAME
+          app-name: $HEROKU_APP_NAME
+
+workflows:
+  build_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
