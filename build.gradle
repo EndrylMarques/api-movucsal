@@ -4,9 +4,14 @@ plugins {
 	id 'java'
 }
 
+java {
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(11))
+	}
+}
+
 group = 'com.milleddy'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -20,8 +25,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile 'com.opencsv:opencsv:5.3'
 	compile files('libs/agentefw.jar')
-
-
 }
 
 test {
