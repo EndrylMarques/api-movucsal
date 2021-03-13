@@ -4,12 +4,6 @@ plugins {
 	id 'java'
 }
 
-java {
-	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(15))
-	}
-}
-
 group = 'com.milleddy'
 version = '0.0.1-SNAPSHOT'
 
