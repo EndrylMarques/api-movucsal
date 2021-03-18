@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PontoService {
@@ -19,5 +20,11 @@ public class PontoService {
 
     public List<Ponto> getAll() {
         return pontoRepository.findAll();
+    }
+
+    public Ponto getById(int id) {
+        Optional<Ponto> ponto = pontoRepository.findById(id);
+
+        return ponto.get();
     }
 }
