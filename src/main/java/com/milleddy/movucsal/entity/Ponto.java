@@ -40,6 +40,8 @@ public class Ponto {
     @CsvBindByName(column = "Altura")
     private int altura;
 
+    public Ponto() {
+    }
 
     public Long getId() {
         return id;
