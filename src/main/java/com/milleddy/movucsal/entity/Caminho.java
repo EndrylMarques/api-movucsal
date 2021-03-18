@@ -8,7 +8,7 @@ public class Caminho {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private int id;
 
     @Column(name = "distancia")
     private double distancia;
@@ -21,11 +21,17 @@ public class Caminho {
     @JoinColumn(name = "fk_ponto_destino")
     private Ponto pontoDestino;
 
-    public Long getId() {
+    public Caminho(double distancia, Ponto pontoOrigem, Ponto pontoDestino) {
+        this.distancia = distancia;
+        this.pontoOrigem = pontoOrigem;
+        this.pontoDestino = pontoDestino;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
