@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class MapaService {
 
+    private final double EARTH_RADIUS = 6372.8;
     CaminhoRepository caminhoRepository;
 
     @Autowired
@@ -40,6 +41,27 @@ public class MapaService {
                 return caminho.getDistancia();
         }
         return 0d;
+    }
+
+    public double getDistanciaDireta(Ponto pontoInicial, Ponto pontoFinal){
+        double latitudeInicial = pontoInicial.getLatitude();
+        double latitudeFinal = pontoFinal.getLatitude();
+        double longitudeInicial = pontoInicial.getLongitude();
+        double longitudeFinal = pontoFinal.getLongitude();
+
+        double latitudeRadian = Math.toRadians(latitudeFinal - latitudeInicial);
+        double longitudeRadian = Math.toRadians(longitudeFinal - longitudeInicial);
+
+        latitudeInicial = Math.toRadians(latitudeInicial);
+        latitudeFinal = Math.toRadians(latitudeFinal);
+
+        double formula = Math.pow(Math.sin(latitudeRadian / 2), 2)
+                + Math.pow(Math.sin(longitudeRadian / 2), 2) * Math.cos(latitudeInicial) * Math.cos(latitudeFinal);
+
+        double calc = 2 * Math.asin(Math.sqrt(formula));
+        double distance = EARTH_RADIUS * calc;
+
+        return distance * 1000; //meters
     }
 
     public List<Caminho> getCaminhos() {
