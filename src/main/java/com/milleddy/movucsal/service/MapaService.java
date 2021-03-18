@@ -20,7 +20,7 @@ public class MapaService {
         this.caminhoRepository = caminhoRepository;
     }
 
-    public List<Ponto> pontosAdjacentes(int pontoId) {
+    public List<Ponto> getPontosAdjacentes(int pontoId) {
         List<Ponto> pontosAdjacentes = new ArrayList<>();
         for (Caminho caminho : getCaminhos()) {
             if (caminho.getPontoOrigem().getId() == pontoId)
@@ -29,7 +29,20 @@ public class MapaService {
         return pontosAdjacentes;
     }
 
+    public double getDistanciaReal(Ponto pontoInicial, Ponto pontoFinal) {
+        for (Caminho caminho : getCaminhos()) {
+            var pontoOrigem = caminho.getPontoOrigem();
+            var pontoDestino = caminho.getPontoDestino();
+
+            if (pontoOrigem.getId() == pontoInicial.getId() || pontoDestino.getId() == pontoFinal.getId())
+                return caminho.getDistancia();
+            if (pontoOrigem.getId() == pontoFinal.getId() || pontoDestino.getId() == pontoInicial.getId())
+                return caminho.getDistancia();
+        }
+        return 0d;
+    }
+
     public List<Caminho> getCaminhos() {
-       return caminhoRepository.findAll();
+        return caminhoRepository.findAll();
     }
 }

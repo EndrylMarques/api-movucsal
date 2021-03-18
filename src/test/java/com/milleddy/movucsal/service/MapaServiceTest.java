@@ -37,6 +37,31 @@ public class MapaServiceTest {
         setUpCaminhos();
     }
 
+    @Test
+    void shouldReturnAdjacentPoints() {
+        when(caminhoRepository.findAll()).thenReturn(caminhos);
+
+        var vizinhos = mapaService.getPontosAdjacentes(1);
+
+        assertThat(vizinhos.size(), is(1));
+    }
+
+    @Test
+    void shouldReturnAllPaths() {
+        mapaService.getCaminhos();
+        verify(caminhoRepository).findAll();
+    }
+
+    @Test
+    void shouldReturnRealDistanceBetweenTwoPoints() {
+        when(caminhoRepository.findAll()).thenReturn(caminhos);
+        var distancia = mapaService.getDistanciaReal(pontos.get(0), pontos.get(1));
+
+        assertThat(distancia, is(1.5));
+    }
+
+
+
     private List<Caminho> setUpCaminhos() {
         Caminho caminho = new Caminho(1.5, pontos.get(0), pontos.get(1));
         caminhos.add(caminho);
@@ -56,27 +81,12 @@ public class MapaServiceTest {
                 -12.948068, -38.412985, 4, TipoPonto.LAMI);
         pontos.add(ponto);
         ponto = new Ponto(3, "LA3", "Lami 3", 'B', true,
-               -12.948085, -38.412984, 4, TipoPonto.LAMI);
+                -12.948085, -38.412984, 4, TipoPonto.LAMI);
         pontos.add(ponto);
         ponto = new Ponto(4, "BF1", "Banheiro Feminino", 'B', true,
                 -12.948101, -38.412982, 4, TipoPonto.BANHEIRO_FEMININO);
         pontos.add(ponto);
 
         return pontos;
-    }
-
-    @Test
-    void shouldReturnAdjacentPoints() {
-        when(caminhoRepository.findAll()).thenReturn(caminhos);
-
-        var vizinhos = mapaService.pontosAdjacentes(1);
-
-        assertThat(vizinhos.size(), is(1));
-    }
-
-    @Test
-    void shouldReturnAllPaths() {
-        mapaService.getCaminhos();
-        verify(caminhoRepository).findAll();
     }
 }
