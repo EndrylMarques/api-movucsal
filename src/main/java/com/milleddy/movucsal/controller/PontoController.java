@@ -1,6 +1,5 @@
 package com.milleddy.movucsal.controller;
 
-
 import com.milleddy.movucsal.controller.dto.PontosResponse;
 import com.milleddy.movucsal.entity.Ponto;
 import com.milleddy.movucsal.service.PontoService;
@@ -24,10 +23,19 @@ public class PontoController {
     }
 
     @GetMapping
-    public ResponseEntity<PontosResponse> getPontos(){
+    public ResponseEntity<PontosResponse> getPontos() {
         List<Ponto> pontos = pontoService.getAll();
         PontosResponse response = new PontosResponse(pontos);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/pontos/{id}")
+    public ResponseEntity<Ponto> getPontoById(int id) {
+        Ponto ponto = pontoService.getById(id);
+        if (ponto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(ponto);
     }
 }

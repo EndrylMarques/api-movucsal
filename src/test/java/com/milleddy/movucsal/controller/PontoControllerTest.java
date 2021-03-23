@@ -1,6 +1,7 @@
 package com.milleddy.movucsal.controller;
 
 import com.milleddy.movucsal.entity.Ponto;
+import com.milleddy.movucsal.entity.TipoPonto;
 import com.milleddy.movucsal.service.PontoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 
 @WebMvcTest(PontoController.class)
 public class PontoControllerTest {
@@ -37,6 +39,18 @@ public class PontoControllerTest {
         mockMvc.perform(get("/pontos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.pontos", hasSize(2)));
+    }
+
+    @Test
+    void shouldReturn200WhenGetExistingPointById() throws Exception {
+        Ponto ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
+                -12.948070, -38.412985, 4, TipoPonto.LAMI);
+
+        when(pontoService.getById(2)).thenReturn(ponto);
+
+        mockMvc.perform(get("/pontos/" + ponto.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(2)));
     }
 
 }
