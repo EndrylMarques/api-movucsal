@@ -23,11 +23,12 @@ public class Estado extends AbstractState {
 
     @Override
     public boolean equals(Object estado) {
-        Estado outro = (Estado) estado;
-        if (this.getPonto().getId() == outro.getPonto().getId()) {
-            return true;
+        if(estado.getClass() != Estado.class){
+            return false;
         }
-        return false;
+
+        Estado outro = (Estado) estado;
+        return this.getPonto().getId() == outro.getPonto().getId();
     }
 
     @Override

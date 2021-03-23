@@ -8,8 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.parameters.P;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapaServiceTest {
-
     private List<Ponto> pontos = new ArrayList<>();
     private List<Caminho> caminhos = new ArrayList<>();
 
@@ -62,25 +59,22 @@ public class MapaServiceTest {
 
     @Test
     void shouldReturnDirectDistanceBetweenTwoPoints() {
-       // when(caminhoRepository.findAll()).thenReturn(caminhos);
         var distancia = mapaService.getDistanciaDireta(pontos.get(0), pontos.get(1));
 
         assertThat(distancia, is(1.1383451916591723));
     }
 
 
-    private List<Caminho> setUpCaminhos() {
+    private void setUpCaminhos() {
         Caminho caminho = new Caminho(1.5, pontos.get(0), pontos.get(1));
         caminhos.add(caminho);
         caminho = new Caminho(4, pontos.get(1), pontos.get(2));
         caminhos.add(caminho);
         caminho = new Caminho(2, pontos.get(2), pontos.get(3));
         caminhos.add(caminho);
-
-        return caminhos;
     }
 
-    private List<Ponto> setUpPontos(){
+    private void setUpPontos(){
         Ponto ponto = new Ponto(1, "LA1","Lami 1", 'B', true,
                 -12.948061, -38.412990, 4, TipoPonto.LAMI);
         pontos.add(ponto);
@@ -93,7 +87,5 @@ public class MapaServiceTest {
         ponto = new Ponto(4, "BF1", "Banheiro Feminino", 'B', true,
                 -12.948101, -38.412975, 4, TipoPonto.BANHEIRO_FEMININO);
         pontos.add(ponto);
-
-        return pontos;
     }
 }

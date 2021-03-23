@@ -25,6 +25,6 @@ public class PontoService {
     public Ponto getById(int id) {
         Optional<Ponto> ponto = pontoRepository.findById(id);
 
-        return ponto.get();
+        return ponto.isPresent() ? ponto.get() : null;
     }
 }
