@@ -24,9 +24,9 @@ public class CalculoService extends Functions {
         double distancia = 0;
         Estado estado = (Estado) no.getState();
         Estado objetivo = (Estado) getObjectives().get(0);
-        MapaService mapaService = new MapaService(caminhoRepository);
+        CaminhoService caminhoService = new CaminhoService(caminhoRepository);
 
-        distanciaReal += mapaService.getDistanciaReal(estado.getPonto(), objetivo.getPonto());
+        distanciaReal += caminhoService.getDistanciaReal(estado.getPonto(), objetivo.getPonto());
 
         if (estado.getPonto().getAltura() != objetivo.getPonto().getAltura())
             distanciaReal *= 1.2;
@@ -37,7 +37,7 @@ public class CalculoService extends Functions {
     public double h(INode no) {
         Estado estado = (Estado) no.getState();
         Estado objetivo = (Estado) getObjectives().get(0);
-        MapaService mapa = new MapaService(caminhoRepository);
+        CaminhoService mapa = new CaminhoService(caminhoRepository);
 
         distanciaDireta += mapa.getDistanciaDireta(estado.getPonto(), objetivo.getPonto());
 

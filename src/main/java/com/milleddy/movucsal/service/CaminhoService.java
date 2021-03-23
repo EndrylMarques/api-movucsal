@@ -3,7 +3,6 @@ package com.milleddy.movucsal.service;
 import com.milleddy.movucsal.entity.Caminho;
 import com.milleddy.movucsal.entity.Ponto;
 import com.milleddy.movucsal.repository.CaminhoRepository;
-import com.milleddy.movucsal.repository.PontoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MapaService {
-
+public class CaminhoService {
     private final double EARTH_RADIUS = 6372.8;
     CaminhoRepository caminhoRepository;
 
     @Autowired
-    public MapaService(CaminhoRepository caminhoRepository) {
+    public CaminhoService(CaminhoRepository caminhoRepository) {
         this.caminhoRepository = caminhoRepository;
     }
 

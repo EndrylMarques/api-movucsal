@@ -17,19 +17,19 @@ import static org.hamcrest.core.Is.is;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapaServiceTest {
-    private List<Ponto> pontos = new ArrayList<>();
-    private List<Caminho> caminhos = new ArrayList<>();
+public class CaminhoServiceTest {
+    private final List<Ponto> pontos = new ArrayList<>();
+    private final List<Caminho> caminhos = new ArrayList<>();
 
     @Mock
     private CaminhoRepository caminhoRepository;
 
-    private MapaService mapaService;
+    private CaminhoService caminhoService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        mapaService = new MapaService(caminhoRepository);
+        caminhoService = new CaminhoService(caminhoRepository);
         setUpPontos();
         setUpCaminhos();
     }
@@ -38,28 +38,28 @@ public class MapaServiceTest {
     void shouldReturnAdjacentPoints() {
         when(caminhoRepository.findAll()).thenReturn(caminhos);
 
-        var vizinhos = mapaService.getPontosAdjacentes(1);
+        var vizinhos = caminhoService.getPontosAdjacentes(1);
 
         assertThat(vizinhos.size(), is(1));
     }
 
     @Test
     void shouldReturnAllPaths() {
-        mapaService.getCaminhos();
+        caminhoService.getCaminhos();
         verify(caminhoRepository).findAll();
     }
 
     @Test
     void shouldReturnRealDistanceBetweenTwoPoints() {
         when(caminhoRepository.findAll()).thenReturn(caminhos);
-        var distancia = mapaService.getDistanciaReal(pontos.get(0), pontos.get(1));
+        var distancia = caminhoService.getDistanciaReal(pontos.get(0), pontos.get(1));
 
         assertThat(distancia, is(1.5));
     }
 
     @Test
     void shouldReturnDirectDistanceBetweenTwoPoints() {
-        var distancia = mapaService.getDistanciaDireta(pontos.get(0), pontos.get(1));
+        var distancia = caminhoService.getDistanciaDireta(pontos.get(0), pontos.get(1));
 
         assertThat(distancia, is(1.1383451916591723));
     }
@@ -74,8 +74,8 @@ public class MapaServiceTest {
         caminhos.add(caminho);
     }
 
-    private void setUpPontos(){
-        Ponto ponto = new Ponto(1, "LA1","Lami 1", 'B', true,
+    private void setUpPontos() {
+        Ponto ponto = new Ponto(1, "LA1", "Lami 1", 'B', true,
                 -12.948061, -38.412990, 4, TipoPonto.LAMI);
         pontos.add(ponto);
         ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
