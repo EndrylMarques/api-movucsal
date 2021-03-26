@@ -11,10 +11,10 @@ public class CalculoService extends Functions {
 
     double distanciaDireta;
     double distanciaReal;
-    CaminhoRepository caminhoRepository;
+    CaminhoService caminhoService;
 
-    public CalculoService(CaminhoRepository caminhoRepository) {
-        this.caminhoRepository = caminhoRepository;
+    public CalculoService(CaminhoService caminhoService) {
+        this.caminhoService = caminhoService;
         distanciaDireta = 0;
         distanciaReal = 0;
     }
@@ -24,7 +24,6 @@ public class CalculoService extends Functions {
         double distancia = 0;
         Estado estado = (Estado) no.getState();
         Estado objetivo = (Estado) getObjectives().get(0);
-        CaminhoService caminhoService = new CaminhoService(caminhoRepository);
 
         distanciaReal += caminhoService.getDistanciaReal(estado.getPonto(), objetivo.getPonto());
 
@@ -37,9 +36,8 @@ public class CalculoService extends Functions {
     public double h(INode no) {
         Estado estado = (Estado) no.getState();
         Estado objetivo = (Estado) getObjectives().get(0);
-        CaminhoService mapa = new CaminhoService(caminhoRepository);
 
-        distanciaDireta += mapa.getDistanciaDireta(estado.getPonto(), objetivo.getPonto());
+        distanciaDireta += caminhoService.getDistanciaDireta(estado.getPonto(), objetivo.getPonto());
 
         return distanciaDireta;
     }
