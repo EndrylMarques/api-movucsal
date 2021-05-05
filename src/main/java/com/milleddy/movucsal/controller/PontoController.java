@@ -6,6 +6,7 @@ import com.milleddy.movucsal.service.PontoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +31,8 @@ public class PontoController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/pontos/{id}")
-    public ResponseEntity<Ponto> getPontoById(int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Ponto> getPontoById(@PathVariable int id) {
         Ponto ponto = pontoService.getById(id);
         if (ponto == null) {
             return ResponseEntity.notFound().build();

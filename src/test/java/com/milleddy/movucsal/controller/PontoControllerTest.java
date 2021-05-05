@@ -3,7 +3,6 @@ package com.milleddy.movucsal.controller;
 import com.milleddy.movucsal.entity.Ponto;
 import com.milleddy.movucsal.entity.TipoPonto;
 import com.milleddy.movucsal.service.PontoService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +19,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 @WebMvcTest(PontoController.class)
-@Disabled("until authentication is fixed")
 public class PontoControllerTest {
 
     @Autowired
@@ -54,5 +52,4 @@ public class PontoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(2)));
     }
-
 }
