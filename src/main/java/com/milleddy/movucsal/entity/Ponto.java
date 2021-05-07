@@ -31,11 +31,11 @@ public class Ponto {
     //todo: add Coordenadas.java?
     @Column(name = "latitude")
     @CsvBindByName(column = "Latitude")
-    private double latitude;
+    private String latitude;
 
     @Column(name = "longitude")
     @CsvBindByName(column = "Longitude")
-    private double longitude;
+    private String longitude;
 
     @Column(name = "altura")
     @CsvBindByName(column = "Altura")
@@ -47,7 +47,7 @@ public class Ponto {
     public Ponto() {
     }
 
-    public Ponto(int id, String codigo, String descricao, char predio, boolean acessivel, double latitude, double longitude, int altura, TipoPonto tipoPonto) {
+    public Ponto(int id, String codigo, String descricao, char predio, boolean acessivel, String latitude, String longitude, int altura, TipoPonto tipoPonto) {
         this.id = id;
         this.codigo = codigo;
         this.descricao = descricao;
@@ -99,19 +99,19 @@ public class Ponto {
         this.acessivel = acessivel;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 

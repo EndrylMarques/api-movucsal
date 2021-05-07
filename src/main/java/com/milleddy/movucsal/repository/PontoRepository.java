@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PontoRepository extends JpaRepository<Ponto, Integer> {
+
+    Ponto findByCodigo(String codigo);
 }

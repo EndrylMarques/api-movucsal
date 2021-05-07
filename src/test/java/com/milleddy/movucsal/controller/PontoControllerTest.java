@@ -44,7 +44,7 @@ public class PontoControllerTest {
     @Test
     void shouldReturn200WhenGetExistingPointById() throws Exception {
         Ponto ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
-                -12.948070, -38.412985, 4, TipoPonto.LAMI);
+                "-12.948070", "-38.412985", 4, TipoPonto.LAMI);
 
         when(pontoService.getById(2)).thenReturn(ponto);
 

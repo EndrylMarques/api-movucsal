@@ -1,6 +1,5 @@
 package com.milleddy.movucsal.service;
 
-
 import com.milleddy.movucsal.entity.Caminho;
 import com.milleddy.movucsal.entity.Ponto;
 import com.milleddy.movucsal.repository.CaminhoRepository;
@@ -15,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,7 +41,7 @@ public class CsvService {
             List<Ponto> pontos = csvToBean.parse();
 
             return pontoRepository.saveAll(pontos);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IOException(e.getMessage());
         }
     }
@@ -54,9 +54,19 @@ public class CsvService {
                     .build();
 
             List<Caminho> caminhos = csvToBean.parse();
+            List<Caminho> updatedCaminhos = new ArrayList<>();
+            for (Caminho caminho : caminhos) {
+                var ponto = pontoRepository.findByCodigo(caminho.getPontoOrigemCodigo());
+                caminho.setPontoOrigem(ponto);
 
-            return caminhoRepository.saveAll(caminhos);
-        }catch (Exception e){
+                ponto = pontoRepository.findByCodigo(caminho.getPontoDestinoCodigo());
+                caminho.setPontoDestino(ponto);
+
+                updatedCaminhos.add(caminho);
+            }
+
+            return caminhoRepository.saveAll(updatedCaminhos);
+        } catch (Exception e) {
             throw new IOException(e.getMessage());
         }
     }

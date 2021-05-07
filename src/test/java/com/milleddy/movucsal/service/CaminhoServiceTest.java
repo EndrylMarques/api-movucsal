@@ -63,8 +63,7 @@ public class CaminhoServiceTest {
 
         assertThat(distancia, is(1.1383451916591723));
     }
-
-
+    
     private void setUpCaminhos() {
         Caminho caminho = new Caminho(1.5, pontos.get(0), pontos.get(1));
         caminhos.add(caminho);
@@ -76,16 +75,16 @@ public class CaminhoServiceTest {
 
     private void setUpPontos() {
         Ponto ponto = new Ponto(1, "LA1", "Lami 1", 'B', true,
-                -12.948061, -38.412990, 4, TipoPonto.LAMI);
+                "-12.948061", "-38.412990", 4, TipoPonto.LAMI);
         pontos.add(ponto);
         ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
-                -12.948070, -38.412985, 4, TipoPonto.LAMI);
+                "-12.948070", "-38.412985", 4, TipoPonto.LAMI);
         pontos.add(ponto);
         ponto = new Ponto(3, "LA3", "Lami 3", 'B', true,
-                -12.948085, -38.412980, 4, TipoPonto.LAMI);
+                "-12.948085", "-38.412980", 4, TipoPonto.LAMI);
         pontos.add(ponto);
         ponto = new Ponto(4, "BF1", "Banheiro Feminino", 'B', true,
-                -12.948101, -38.412975, 4, TipoPonto.BANHEIRO_FEMININO);
+                "-12.948101", "-38.412975", 4, TipoPonto.BANHEIRO_FEMININO);
         pontos.add(ponto);
     }
 }
