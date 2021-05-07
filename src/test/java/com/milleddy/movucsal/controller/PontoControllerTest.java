@@ -38,7 +38,8 @@ public class PontoControllerTest {
 
         mockMvc.perform(get("/pontos"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.pontos", hasSize(2)));
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test

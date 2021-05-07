@@ -1,62 +1,37 @@
-package com.milleddy.movucsal.entity;
+package com.milleddy.movucsal.controller.dto;
 
-import com.opencsv.bean.CsvBindByName;
+import com.milleddy.movucsal.entity.Ponto;
+import com.milleddy.movucsal.entity.TipoPonto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "tb_ponto")
-public class Ponto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+public class PontoResponse {
     private int id;
 
-    @Column(name = "codigo")
-    @CsvBindByName(column = "Codigo")
     private String codigo;
 
-    @Column(name = "descricao")
-    @CsvBindByName(column = "Description")
     private String descricao;
 
-    @Column(name = "predio")
-    @CsvBindByName(column = "Predio")
     private char predio;
 
-    @Column(name = "acessivel")
-    @CsvBindByName(column = "Acessivel")
     private boolean acessivel;
 
-    //todo: add Coordenadas.java?
-    @Column(name = "latitude")
-    @CsvBindByName(column = "Latitude")
     private String latitude;
 
-    @Column(name = "longitude")
-    @CsvBindByName(column = "Longitude")
     private String longitude;
 
-    @Column(name = "altura")
-    @CsvBindByName(column = "Altura")
     private int altura;
 
-    @Column(name = "tipoPonto")
     private TipoPonto tipoPonto;
 
-    public Ponto() {
-    }
-
-    public Ponto(int id, String codigo, String descricao, char predio, boolean acessivel, String latitude, String longitude, int altura, TipoPonto tipoPonto) {
-        this.id = id;
-        this.codigo = codigo;
-        this.descricao = descricao;
-        this.predio = predio;
-        this.acessivel = acessivel;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.altura = altura;
-        this.tipoPonto = tipoPonto;
+    public PontoResponse(Ponto ponto) {
+        this.id = ponto.getId();
+        this.codigo = ponto.getCodigo();
+        this.descricao = ponto.getDescricao();
+        this.predio = ponto.getPredio();
+        this.acessivel = ponto.isAcessivel();
+        this.latitude = ponto.getLatitude();
+        this.longitude = ponto.getLongitude();
+        this.altura = ponto.getAltura();
+        this.tipoPonto = ponto.getTipoPonto();
     }
 
     public int getId() {

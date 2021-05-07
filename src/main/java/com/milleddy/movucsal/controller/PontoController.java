@@ -1,6 +1,6 @@
 package com.milleddy.movucsal.controller;
 
-import com.milleddy.movucsal.controller.dto.PontosResponse;
+import com.milleddy.movucsal.controller.dto.PontoResponse;
 import com.milleddy.movucsal.entity.Ponto;
 import com.milleddy.movucsal.service.PontoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pontos")
@@ -24,19 +25,22 @@ public class PontoController {
     }
 
     @GetMapping
-    public ResponseEntity<PontosResponse> getPontos() {
+    public ResponseEntity<List<PontoResponse>> getPontos() {
         List<Ponto> pontos = pontoService.getAll();
-        PontosResponse response = new PontosResponse(pontos);
+
+        var response = pontos.stream()
+                .map(p -> new PontoResponse(p)).collect(Collectors.toList());
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Ponto> getPontoById(@PathVariable int id) {
+    public ResponseEntity<PontoResponse> getPontoById(@PathVariable int id) {
         Ponto ponto = pontoService.getById(id);
         if (ponto == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(ponto);
+
+        return ResponseEntity.ok(new PontoResponse(ponto));
     }
 }
