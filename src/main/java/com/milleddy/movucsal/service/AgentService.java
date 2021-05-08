@@ -6,6 +6,7 @@ import br.com.mariojp.ai.agent.IAgent;
 import br.com.mariojp.ai.agent.INode;
 import br.com.mariojp.ai.agent.exception.EmptyBorderException;
 import com.milleddy.movucsal.entity.Estado;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class AgentService {
         this.pontoService = pontoService;
     }
 
-    public List<INode> generatePathWithAgent(int initialSpotId, int finalSpotId){
+    public List<INode> generatePathWithAgent(int initialSpotId, int finalSpotId) throws NotFoundException { //todo: test?
         AgentModel agentModel = new AgentModel();
         agentModel.addAction(ACTION_NAME, new ActionService(caminhoService));
 
@@ -37,7 +38,7 @@ public class AgentService {
         agentModel.setFunctions(new CalculoService(caminhoService));
         agentModel.setType(ALGORITHM_TYPE);
 
-        IAgent iAgent =  AgentFactory.createAgent(agentModel);
+        IAgent iAgent = AgentFactory.createAgent(agentModel);
 
         INode finalNode = null;
         try {
@@ -54,8 +55,11 @@ public class AgentService {
         return nodes;
     }
 
-    private Estado getStateBySpotId(int spotId) {
+    private Estado getStateBySpotId(int spotId) throws NotFoundException {
         var spot = pontoService.getById(spotId);
+        if (spot == null)
+            throw new NotFoundException("Ponto não encontrado");
+
         Estado state = new Estado();
 
         state.setPonto(spot);

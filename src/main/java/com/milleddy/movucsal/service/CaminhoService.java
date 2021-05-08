@@ -19,6 +19,10 @@ public class CaminhoService {
         this.caminhoRepository = caminhoRepository;
     }
 
+    public List<Caminho> getCaminhos() {
+        return caminhoRepository.findAll();
+    }
+
     public List<Ponto> getPontosAdjacentes(int pontoId) {
         List<Ponto> pontosAdjacentes = new ArrayList<>();
         for (Caminho caminho : getCaminhos()) {
@@ -62,12 +66,9 @@ public class CaminhoService {
         return distance * 1000; //meters
     }
 
+
     private double toRadians(double value) {
         return Math.toRadians(value);
-    }
-
-    public List<Caminho> getCaminhos() {
-        return caminhoRepository.findAll();
     }
 
     private double getLatitude(Ponto ponto) {
