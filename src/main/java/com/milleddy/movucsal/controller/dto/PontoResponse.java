@@ -38,71 +38,36 @@ public class PontoResponse {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public char getPredio() {
         return predio;
-    }
-
-    public void setPredio(char predio) {
-        this.predio = predio;
     }
 
     public boolean isAcessivel() {
         return acessivel;
     }
 
-    public void setAcessivel(boolean acessivel) {
-        this.acessivel = acessivel;
-    }
-
     public String getLatitude() {
         return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
     }
 
     public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
     public int getAltura() {
         return altura;
-    }
-
-    public void setAltura(int altura) {
-        this.altura = altura;
     }
 
     public TipoPonto getTipoPonto() {
         return tipoPonto;
     }
 
-    public void setTipoPonto(TipoPonto tipoPonto) {
-        this.tipoPonto = tipoPonto;
-    }
 }

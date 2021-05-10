@@ -3,7 +3,6 @@ package com.milleddy.movucsal.service;
 import br.com.mariojp.ai.agent.Functions;
 import br.com.mariojp.ai.agent.INode;
 import com.milleddy.movucsal.entity.Estado;
-import com.milleddy.movucsal.repository.CaminhoRepository;
 import org.springframework.stereotype.Service;
 
 @Service

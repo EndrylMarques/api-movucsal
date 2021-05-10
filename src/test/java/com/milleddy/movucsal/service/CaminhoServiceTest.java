@@ -35,7 +35,7 @@ public class CaminhoServiceTest {
     }
 
     @Test
-    void shouldReturnAdjacentPoints() {
+    void shouldReturnAdjacentSpots() {
         when(caminhoRepository.findAll()).thenReturn(caminhos);
 
         var vizinhos = caminhoService.getPontosAdjacentes(1);
@@ -50,7 +50,7 @@ public class CaminhoServiceTest {
     }
 
     @Test
-    void shouldReturnRealDistanceBetweenTwoPoints() {
+    void shouldReturnRealDistanceBetweenTwoSpots() {
         when(caminhoRepository.findAll()).thenReturn(caminhos);
         var distancia = caminhoService.getDistanciaReal(pontos.get(0), pontos.get(1));
 
@@ -58,7 +58,7 @@ public class CaminhoServiceTest {
     }
 
     @Test
-    void shouldReturnDirectDistanceBetweenTwoPoints() {
+    void shouldReturnDirectDistanceBetweenTwoSpots() {
         var distancia = caminhoService.getDistanciaDireta(pontos.get(0), pontos.get(1));
 
         assertThat(distancia, is(1.1383451916591723));

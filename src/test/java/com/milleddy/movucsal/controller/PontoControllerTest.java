@@ -28,7 +28,7 @@ public class PontoControllerTest {
     private PontoService pontoService;
 
     @Test
-    void shouldReturn200WhenGetAllPoints() throws Exception {
+    void shouldReturn200WhenGetAllSpots() throws Exception {
         List<Ponto> pontos = List.of(
                 new Ponto(),
                 new Ponto()
