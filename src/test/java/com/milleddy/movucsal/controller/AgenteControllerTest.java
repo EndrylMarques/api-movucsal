@@ -19,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(AgenteController.class)
 class AgenteControllerTest {
 
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -30,15 +29,19 @@ class AgenteControllerTest {
     void getCaminhoFinalShouldReturnCaminhoCompleto() throws Exception {
         int pontoInicialId = 1;
         int pontoFinalId = 4;
+        boolean caminhoAcessivel = false;
 
         List<INode> nodes = new ArrayList<>();
 
-        when(agentService.generatePathWithAgent(pontoInicialId, pontoFinalId)).thenReturn(nodes);
+        when(agentService.gerarCaminhoPorAgente(pontoInicialId, pontoFinalId, caminhoAcessivel))
+                .thenReturn(nodes);
 
         mockMvc.perform(get("/agente/")
                 .param("pontoInicialId", "1")
-                .param("pontoFinalId", "3"))
+                .param("pontoFinalId", "3")
+                .param("acessivel", "false"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.teste").exists());
     }
 }

@@ -19,22 +19,24 @@ public class ActionService extends AbstractAction {
     }
 
     public List<IState> execute(IState arg0) throws ImpossibleActionException {
-        List<IState> stateList = new ArrayList<>();
-        Estado state = (Estado) arg0;
-        Ponto spot = state.getPonto();
+        List<IState> iEstados = new ArrayList<>();
+        Estado estado = (Estado) arg0;
+        Ponto ponto = estado.getPonto();
 
-        List<Ponto> adjacentSpots = caminhoService.getPontosAdjacentes(spot.getId());
-        if (adjacentSpots.size() == 0){
+        List<Ponto> pontosAdjacentes = caminhoService.getPontosAdjacentes(ponto.getId());
+
+
+        if (pontosAdjacentes.size() == 0){
             throw new ImpossibleActionException();
         }
 
-        for (Ponto p : adjacentSpots) {
-            Estado newState = (Estado) state.clone();
-            newState.setPonto(p);
-            stateList.add(newState);
+        for (Ponto p : pontosAdjacentes) {
+            Estado novoEstado = (Estado) estado.clone();
+            novoEstado.setPonto(p);
+            iEstados.add(novoEstado);
         }
 
-        return stateList;
+        return iEstados;
     }
 
 }

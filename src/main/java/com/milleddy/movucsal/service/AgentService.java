@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 public class AgentService {
 
-    private int ALGORITHM_TYPE = IAgent.BREADTH_FIRST_SEARCH;
-    private String ACTION_NAME = "Ir de um ponto a outro";
+    private int TIPO_ALGORITMO = IAgent.START_SEARCH;
+    private String ACAO = "Ir de um ponto a outro";
 
     private CaminhoService caminhoService;
     private PontoService pontoService;
@@ -25,19 +25,22 @@ public class AgentService {
         this.pontoService = pontoService;
     }
 
-    public List<INode> generatePathWithAgent(int initialSpotId, int finalSpotId) throws NotFoundException {
-        //todo: test
+    public List gerarCaminhoPorAgente(int initialSpotId, int finalSpotId, boolean acessivel) throws NotFoundException {
         AgentModel agentModel = new AgentModel();
-        agentModel.addAction(ACTION_NAME, new ActionService(caminhoService));
 
-        Estado initialState = getStateBySpotId(initialSpotId);
+        if (acessivel)
+            agentModel.addAction(ACAO, new ActionServiceAcessivel(caminhoService));
+        else
+            agentModel.addAction(ACAO, new ActionService(caminhoService));
+
+        Estado initialState = getEstadoByPontoId(initialSpotId);
         agentModel.setInitState(initialState);
 
-        Estado finalState = getStateBySpotId(finalSpotId);
+        Estado finalState = getEstadoByPontoId(finalSpotId);
         agentModel.addObjective(finalState);
 
         agentModel.setFunctions(new CalculoService(caminhoService));
-        agentModel.setType(ALGORITHM_TYPE);
+        agentModel.setType(TIPO_ALGORITMO);
 
         IAgent iAgent = AgentFactory.createAgent(agentModel);
 
@@ -49,22 +52,21 @@ public class AgentService {
         }
 
         List nodes = iAgent.getPath(finalNode);
-        System.out.println(nodes); //path (list of nodes that builds the path)
+        System.out.println(nodes); //path (list of nodes that were visited)
         System.out.println(iAgent); //path summary (time, nodes visited/expanded)
-        System.out.println(finalNode); //last node summary (cost, ??, last visited node)
+        System.out.println(finalNode); //final node summary (cost, ??, last visited node)
 
         return nodes;
     }
 
-    private Estado getStateBySpotId(int spotId) throws NotFoundException {
-        var spot = pontoService.getById(spotId);
-        if (spot == null)
+    private Estado getEstadoByPontoId(int pontoId) throws NotFoundException {
+        var ponto = pontoService.getById(pontoId);
+        if (ponto == null)
             throw new NotFoundException("Ponto não encontrado");
 
-        Estado state = new Estado();
+        Estado estado = new Estado();
 
-        state.setPonto(spot);
-        return state;
+        estado.setPonto(ponto);
+        return estado;
     }
-
 }

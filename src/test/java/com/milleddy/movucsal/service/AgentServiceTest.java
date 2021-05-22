@@ -37,12 +37,12 @@ class AgentServiceTest {
         var pontoFinal = new Ponto(4, "PFT", "Ponto Final Teste", 'A',
                 true, "11.456", "12.212", 1, TipoPonto.BANHEIRO_FEMININO);
 
+        var acessivel = false;
         when(pontoService.getById(1)).thenReturn(pontoInicial);
         when(pontoService.getById(4)).thenReturn(pontoFinal);
 
-
         //when
-        var result = agentService.generatePathWithAgent(pontoInicial.getId(), pontoFinal.getId());
+        var result = agentService.gerarCaminhoPorAgente(pontoInicial.getId(), pontoFinal.getId(), true);
 
         verify(AgentFactory.createAgent(any()));
         verify(AgentFactory.createAgent(any()).function());
