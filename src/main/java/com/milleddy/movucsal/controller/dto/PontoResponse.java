@@ -5,21 +5,13 @@ import com.milleddy.movucsal.entity.TipoPonto;
 
 public class PontoResponse {
     private int id;
-
     private String codigo;
-
     private String descricao;
-
     private char predio;
-
     private boolean acessivel;
-
     private String latitude;
-
     private String longitude;
-
     private int altura;
-
     private TipoPonto tipoPonto;
 
     public PontoResponse(Ponto ponto) {
