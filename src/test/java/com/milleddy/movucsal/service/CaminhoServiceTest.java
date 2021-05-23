@@ -43,8 +43,6 @@ public class CaminhoServiceTest {
         assertThat(vizinhos.size(), is(1));
     }
 
-    //todo: add test to check if returns only accesible spots
-
     @Test
     void shouldReturnAllPaths() {
         caminhoService.getCaminhos();

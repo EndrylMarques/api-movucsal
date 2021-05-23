@@ -28,7 +28,6 @@ public class Ponto {
     @CsvBindByName(column = "Acessivel")
     private boolean acessivel;
 
-    //todo: add Coordenadas.java?
     @Column(name = "latitude")
     @CsvBindByName(column = "Latitude")
     private String latitude;
