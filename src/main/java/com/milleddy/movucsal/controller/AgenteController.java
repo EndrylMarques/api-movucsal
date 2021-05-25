@@ -27,6 +27,6 @@ public class AgenteController {
         if (caminho == null)
             return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(new AgenteResponse(caminho));
+        return ResponseEntity.ok(caminho);
     }
 }

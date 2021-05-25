@@ -5,11 +5,14 @@ import br.com.mariojp.ai.agent.AgentModel;
 import br.com.mariojp.ai.agent.IAgent;
 import br.com.mariojp.ai.agent.INode;
 import br.com.mariojp.ai.agent.exception.EmptyBorderException;
+import com.milleddy.movucsal.controller.dto.AgenteResponse;
 import com.milleddy.movucsal.entity.Estado;
 import javassist.NotFoundException;
+import org.apache.commons.collections.map.SingletonMap;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AgentService {
@@ -25,7 +28,7 @@ public class AgentService {
         this.pontoService = pontoService;
     }
 
-    public List gerarCaminhoPorAgente(int initialSpotId, int finalSpotId, boolean acessivel) throws NotFoundException {
+    public AgenteResponse gerarCaminhoPorAgente(int initialSpotId, int finalSpotId, boolean acessivel) throws NotFoundException {
         AgentModel agentModel = new AgentModel();
 
         if (acessivel)
@@ -51,12 +54,12 @@ public class AgentService {
             e.printStackTrace();
         }
 
-        List nodes = iAgent.getPath(finalNode);
+        List<INode> nodes = iAgent.getPath(finalNode);
         System.out.println(nodes); //path (list of nodes that were visited)
         System.out.println(iAgent); //path summary (time, nodes visited/expanded)
         System.out.println(finalNode); //final node summary (cost, ??, last visited node)
 
-        return nodes;
+        return new AgenteResponse(nodes, finalNode);
     }
 
     private Estado getEstadoByPontoId(int pontoId) throws NotFoundException {

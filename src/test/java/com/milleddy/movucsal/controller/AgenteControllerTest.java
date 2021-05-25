@@ -33,8 +33,8 @@ class AgenteControllerTest {
 
         List<INode> nodes = new ArrayList<>();
 
-        when(agentService.gerarCaminhoPorAgente(pontoInicialId, pontoFinalId, caminhoAcessivel))
-                .thenReturn(nodes);
+//        when(agentService.gerarCaminhoPorAgente(pontoInicialId, pontoFinalId, caminhoAcessivel))
+//                .thenReturn(nodes);
 
         mockMvc.perform(get("/agente/")
                 .param("pontoInicialId", "1")
