@@ -83,8 +83,8 @@ public class Caminho {
         return pontoDestinoCodigo;
     }
 
-    public void setSPontoOrigemCodigo(String pontoDestinoCodigo) {
-        this.pontoOrigemCodigo = pontoOrigemCodigo;
+    public void setPontoDestinoCodigo(String pontoDestinoCodigo) {
+        this.pontoDestinoCodigo = pontoDestinoCodigo;
     }
 
 }
