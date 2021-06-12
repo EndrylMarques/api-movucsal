@@ -41,6 +41,8 @@ public class Ponto {
     private int altura;
 
     @Column(name = "tipoPonto")
+    @Enumerated(EnumType.STRING)
+    @CsvBindByName(column = "tipoPonto")
     private TipoPonto tipoPonto;
 
     public Ponto() {

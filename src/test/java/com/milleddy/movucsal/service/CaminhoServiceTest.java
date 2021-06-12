@@ -84,7 +84,7 @@ public class CaminhoServiceTest {
                 "-12.948085", "-38.412980", 4, TipoPonto.LAMI);
         pontos.add(ponto);
         ponto = new Ponto(4, "BF1", "Banheiro Feminino", 'B', true,
-                "-12.948101", "-38.412975", 4, TipoPonto.BANHEIRO_FEMININO);
+                "-12.948101", "-38.412975", 4, TipoPonto.BANHEIRO);
         pontos.add(ponto);
     }
 
