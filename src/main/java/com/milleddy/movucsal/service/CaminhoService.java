@@ -63,7 +63,7 @@ public class CaminhoService {
         double calc = 2 * Math.asin(Math.sqrt(formula));
         double distance = EARTH_RADIUS * calc;
 
-        return distance * 1000; //meters
+        return distance * 1000;
     }
 
 

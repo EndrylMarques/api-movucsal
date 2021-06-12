@@ -2,6 +2,7 @@ package com.milleddy.movucsal.controller;
 
 
 import com.milleddy.movucsal.controller.dto.AgenteResponse;
+import com.milleddy.movucsal.exceptions.CaminhoNaoEncontradoException;
 import com.milleddy.movucsal.service.AgentService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class AgenteController {
         var caminho = agentService.gerarCaminhoPorAgente(pontoInicialId, pontoFinalId, acessivel);
 
         if (caminho == null)
-            return ResponseEntity.badRequest().build();
+            throw new CaminhoNaoEncontradoException("Caminho não encontrado");
 
         return ResponseEntity.ok(caminho);
     }

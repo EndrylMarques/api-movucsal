@@ -20,7 +20,6 @@ public class CalculoService extends Functions {
 
     @Override
     public double g(INode no) {
-        double distancia = 0;
         Estado estado = (Estado) no.getState();
         Estado objetivo = (Estado) getObjectives().get(0);
 
