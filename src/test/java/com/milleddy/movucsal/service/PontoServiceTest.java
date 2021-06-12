@@ -8,8 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Collections;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -42,10 +44,25 @@ public class PontoServiceTest {
 
         when(pontoRepository.findById(ponto.getId())).thenReturn(Optional.of(ponto));
 
-        //when
-        pontoService.getById(ponto.getId());
+        var result = pontoService.getById(ponto.getId());
 
-        //then
         verify(pontoRepository).findById(ponto.getId());
+        assertEquals(ponto, result);
+    }
+
+    @Test
+    void getByTipoPontoDeveRetornarLista() {
+        Ponto ponto = new Ponto(1, "TES", "Teste 1", 'B', true,
+                "23.4", "45.7", 1, TipoPonto.SALA);
+
+       var expectedList = Collections.singletonList(ponto);
+
+        when(pontoRepository.findByTipoPonto(ponto.getTipoPonto()))
+                .thenReturn(expectedList);
+
+        var result = pontoService.getByTipoPonto(TipoPonto.SALA);
+
+        verify(pontoRepository).findByTipoPonto(TipoPonto.SALA);
+        assertEquals(expectedList, result);
     }
 }

@@ -2,6 +2,7 @@ package com.milleddy.movucsal.controller;
 
 import com.milleddy.movucsal.controller.dto.PontoResponse;
 import com.milleddy.movucsal.entity.Ponto;
+import com.milleddy.movucsal.entity.TipoPonto;
 import com.milleddy.movucsal.service.PontoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,18 @@ public class PontoController {
         }
 
         return ResponseEntity.ok(new PontoResponse(ponto));
+    }
+
+    @GetMapping("/tipo/{tipo}")
+    public ResponseEntity<List<PontoResponse>> getPontoByTipoPonto(@PathVariable TipoPonto tipo) {
+        List<Ponto> pontos = pontoService.getByTipoPonto(tipo);
+        if (pontos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity
+                .ok(pontos.stream()
+                        .map(p -> new PontoResponse(p))
+                        .collect(Collectors.toList()));
     }
 }

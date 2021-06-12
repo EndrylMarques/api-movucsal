@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -53,4 +54,20 @@ public class PontoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(2)));
     }
+
+    @Test
+    void shouldReturn200WhenGetByTipoPonto() throws Exception {
+        Ponto ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
+                "-12.948070", "-38.412985", 4, TipoPonto.LAMI);
+
+        when(pontoService.getByTipoPonto(TipoPonto.LAMI)).thenReturn(Collections.singletonList(ponto));
+
+        mockMvc.perform(get("/pontos/tipo/" + ponto.getTipoPonto().name()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id", is(2)))
+                .andExpect(jsonPath("$[0].tipoPonto", is(TipoPonto.LAMI.name())));
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.milleddy.movucsal.service;
 
 import com.milleddy.movucsal.entity.Ponto;
+import com.milleddy.movucsal.entity.TipoPonto;
 import com.milleddy.movucsal.repository.PontoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class PontoService {
         Optional<Ponto> ponto = pontoRepository.findById(id);
 
         return ponto.isPresent() ? ponto.get() : null;
+    }
+
+    public List<Ponto> getByTipoPonto(TipoPonto tipoPonto) {
+        return pontoRepository.findByTipoPonto(tipoPonto);
     }
 }
