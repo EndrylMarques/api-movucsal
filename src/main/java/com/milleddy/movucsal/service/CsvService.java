@@ -4,7 +4,6 @@ import com.milleddy.movucsal.entity.Caminho;
 import com.milleddy.movucsal.entity.Ponto;
 import com.milleddy.movucsal.repository.CaminhoRepository;
 import com.milleddy.movucsal.repository.PontoRepository;
-import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ import java.util.List;
 public class CsvService {
 
     private PontoRepository pontoRepository;
-
     private CaminhoRepository caminhoRepository;
 
     @Autowired
@@ -34,7 +32,7 @@ public class CsvService {
     public List<Ponto> readPontoCsvFile(MultipartFile file) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
-            CsvToBean csvToBean = new CsvToBeanBuilder(reader)
+            var csvToBean = new CsvToBeanBuilder<Ponto>(reader)
                     .withType(Ponto.class)
                     .build();
 
@@ -49,12 +47,12 @@ public class CsvService {
     public List<Caminho> readCaminhoCsvFile(MultipartFile file) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
-            CsvToBean csvToBean = new CsvToBeanBuilder(reader)
+            var csvToBean = new CsvToBeanBuilder<Caminho>(reader)
                     .withType(Caminho.class)
                     .build();
 
-            List<Caminho> caminhos = csvToBean.parse();
-            List<Caminho> updatedCaminhos = new ArrayList<>();
+            var caminhos = csvToBean.parse();
+            var updatedCaminhos = new ArrayList<Caminho>();
             for (Caminho caminho : caminhos) {
                 var ponto = pontoRepository.findByCodigo(caminho.getPontoOrigemCodigo());
                 caminho.setPontoOrigem(ponto);

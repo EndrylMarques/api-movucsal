@@ -13,6 +13,7 @@ public class ActionServiceAcessivel extends ActionService {
         super(caminhoService);
     }
 
+    @Override
     public List<IState> execute(IState arg0) throws ImpossibleActionException {
         List<IState> iEstados = super.execute(arg0);
         List<IState> iEstadosAcessiveis = new ArrayList<>();
@@ -23,7 +24,7 @@ public class ActionServiceAcessivel extends ActionService {
                 iEstadosAcessiveis.add(iEstado);
         }
 
-        if (iEstadosAcessiveis.size() > 0)
+        if (!iEstadosAcessiveis.isEmpty())
             return iEstadosAcessiveis;
 
         throw new ImpossibleActionException();

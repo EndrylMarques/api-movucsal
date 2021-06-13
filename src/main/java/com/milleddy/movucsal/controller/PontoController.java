@@ -30,14 +30,15 @@ public class PontoController {
         List<Ponto> pontos = pontoService.getAll();
 
         var response = pontos.stream()
-                .map(p -> new PontoResponse(p)).collect(Collectors.toList());
+                .map(p -> new PontoResponse(p))
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PontoResponse> getPontoById(@PathVariable int id) {
-        Ponto ponto = pontoService.getById(id);
+        var ponto = pontoService.getById(id);
         if (ponto == null) {
             return ResponseEntity.notFound().build();
         }

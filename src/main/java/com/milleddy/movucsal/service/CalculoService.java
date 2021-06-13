@@ -20,8 +20,8 @@ public class CalculoService extends Functions {
 
     @Override
     public double g(INode no) {
-        Estado estado = (Estado) no.getState();
-        Estado objetivo = (Estado) getObjectives().get(0);
+        var estado = (Estado) no.getState();
+        var objetivo = (Estado) getObjectives().get(0);
 
         distanciaReal += caminhoService.getDistanciaReal(estado.getPonto(), objetivo.getPonto());
 
@@ -32,8 +32,8 @@ public class CalculoService extends Functions {
 
     @Override
     public double h(INode no) {
-        Estado estado = (Estado) no.getState();
-        Estado objetivo = (Estado) getObjectives().get(0);
+        var estado = (Estado) no.getState();
+        var objetivo = (Estado) getObjectives().get(0);
 
         distanciaDireta += caminhoService.getDistanciaDireta(estado.getPonto(), objetivo.getPonto());
 

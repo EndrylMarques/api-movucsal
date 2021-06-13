@@ -6,9 +6,14 @@ import com.milleddy.movucsal.service.CsvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -22,9 +27,9 @@ public class CsvController {
     }
 
     @PostMapping("/upload-ponto-csv")
-    ResponseEntity<Ponto> uploadPontoCSVFile(@RequestParam("pontos") MultipartFile file) {
+    public ResponseEntity<List<Ponto>> uploadPontoCSVFile(@RequestParam("pontos") MultipartFile file) {
         try {
-            return new ResponseEntity(csvService.readPontoCsvFile(file), HttpStatus.OK);
+            return ResponseEntity.ok(csvService.readPontoCsvFile(file));
         } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, e.getMessage());
@@ -32,13 +37,12 @@ public class CsvController {
     }
 
     @PostMapping("/upload-caminho-csv")
-    ResponseEntity<Caminho> uploadCaminhoCSVFile(@RequestParam("caminho") MultipartFile file) {
+    public ResponseEntity<List<Caminho>> uploadCaminhoCSVFile(@RequestParam("caminho") MultipartFile file) {
         try {
-            return new ResponseEntity(csvService.readCaminhoCsvFile(file), HttpStatus.OK);
+            return ResponseEntity.ok(csvService.readCaminhoCsvFile(file));
         } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, e.getMessage());
         }
-
     }
 }

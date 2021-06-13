@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class CaminhoService {
-    private final double EARTH_RADIUS = 6372.8;
+    private static final double EARTH_RADIUS = 6372.8;
     CaminhoRepository caminhoRepository;
 
     @Autowired

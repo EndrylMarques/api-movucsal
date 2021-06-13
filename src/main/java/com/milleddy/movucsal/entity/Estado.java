@@ -2,12 +2,15 @@ package com.milleddy.movucsal.entity;
 
 import br.com.mariojp.ai.agent.AbstractState;
 
+import java.util.Objects;
+
 public class Estado extends AbstractState {
 
     private Ponto ponto;
 
+    @Override
     public Object clone() {
-        Estado copia = new Estado();
+        var copia = new Estado();
         copia.setPonto(this.ponto);
 
         return copia;
@@ -23,12 +26,15 @@ public class Estado extends AbstractState {
 
     @Override
     public boolean equals(Object estado) {
-        if(estado.getClass() != Estado.class){
-            return false;
-        }
+        if (estado == null || estado.getClass() != Estado.class) return false;
 
-        Estado outro = (Estado) estado;
+        var outro = (Estado) estado;
         return this.getPonto().getId() == outro.getPonto().getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ponto);
     }
 
     @Override
