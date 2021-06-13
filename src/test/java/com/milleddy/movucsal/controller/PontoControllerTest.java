@@ -12,12 +12,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.List;
 
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 
 @WebMvcTest(PontoController.class)
 public class PontoControllerTest {
@@ -56,6 +55,18 @@ public class PontoControllerTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenGetPointByIdDoesNotExist() throws Exception {
+        Ponto ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
+                "-12.948070", "-38.412985", 4, TipoPonto.LAMI);
+
+        when(pontoService.getById(ponto.getId())).thenReturn(null);
+
+        mockMvc.perform(get("/pontos/" + ponto.getId()))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.id").doesNotExist());
+    }
+
+    @Test
     void shouldReturn200WhenGetByTipoPonto() throws Exception {
         Ponto ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
                 "-12.948070", "-38.412985", 4, TipoPonto.LAMI);
@@ -70,4 +81,15 @@ public class PontoControllerTest {
                 .andExpect(jsonPath("$[0].tipoPonto", is(TipoPonto.LAMI.name())));
     }
 
+    @Test
+    void shouldThrowExceptionWhenGetByTipoPontoIsNotFound() throws Exception {
+        Ponto ponto = new Ponto(2, "LA2", "Lami 2", 'B', true,
+                "-12.948070", "-38.412985", 4, TipoPonto.LAMI);
+
+        when(pontoService.getByTipoPonto(TipoPonto.LAMI))
+                .thenReturn(Collections.emptyList());
+
+        mockMvc.perform(get("/pontos/tipo/" + ponto.getTipoPonto().name()))
+                .andExpect(status().isNotFound());
+    }
 }

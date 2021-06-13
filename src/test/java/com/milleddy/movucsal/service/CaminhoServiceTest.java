@@ -15,6 +15,7 @@ import static org.mockito.Mockito.when;
 import static org.hamcrest.core.Is.is;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CaminhoServiceTest {
@@ -55,6 +56,14 @@ public class CaminhoServiceTest {
         var distancia = caminhoService.getDistanciaReal(pontos.get(0), pontos.get(1));
 
         assertThat(distancia, is(1.5));
+    }
+
+    @Test
+    void shouldReturn0WhenPathsDontExist() {
+        when(caminhoRepository.findAll()).thenReturn(Collections.emptyList());
+        var distancia = caminhoService.getDistanciaReal(pontos.get(0), pontos.get(1));
+
+        assertThat(distancia, is(0d));
     }
 
     @Test
