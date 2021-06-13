@@ -7,7 +7,8 @@ import br.com.mariojp.ai.agent.INode;
 import br.com.mariojp.ai.agent.exception.EmptyBorderException;
 import com.milleddy.movucsal.controller.dto.AgenteResponse;
 import com.milleddy.movucsal.entity.Estado;
-import javassist.NotFoundException;
+import com.milleddy.movucsal.exceptions.MovUcsalException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,7 +25,7 @@ public class AgentService {
         this.pontoService = pontoService;
     }
 
-    public AgenteResponse gerarCaminhoPorAgente(int initialSpotId, int finalSpotId, boolean acessivel) throws NotFoundException {
+    public AgenteResponse gerarCaminhoPorAgente(int initialSpotId, int finalSpotId, boolean acessivel) throws MovUcsalException {
         var agentModel = new AgentModel();
 
         if (acessivel)
@@ -58,10 +59,10 @@ public class AgentService {
         return new AgenteResponse(nodes);
     }
 
-    private Estado getEstadoByPontoId(int pontoId) throws NotFoundException {
+    private Estado getEstadoByPontoId(int pontoId) throws MovUcsalException {
         var ponto = pontoService.getById(pontoId);
         if (ponto == null)
-            throw new NotFoundException("Ponto não encontrado");
+            throw new MovUcsalException("Ponto não encontrado", HttpStatus.NOT_FOUND);
 
         var estado = new Estado();
 

@@ -2,6 +2,7 @@ package com.milleddy.movucsal.controller;
 
 import com.milleddy.movucsal.entity.Caminho;
 import com.milleddy.movucsal.entity.Ponto;
+import com.milleddy.movucsal.exceptions.MovUcsalException;
 import com.milleddy.movucsal.service.CsvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -31,8 +31,8 @@ public class CsvController {
         try {
             return ResponseEntity.ok(csvService.readPontoCsvFile(file));
         } catch (Exception e) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new MovUcsalException(
+                    e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -41,8 +41,8 @@ public class CsvController {
         try {
             return ResponseEntity.ok(csvService.readCaminhoCsvFile(file));
         } catch (Exception e) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new MovUcsalException(
+                    e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

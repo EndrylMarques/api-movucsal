@@ -3,8 +3,10 @@ package com.milleddy.movucsal.controller;
 import com.milleddy.movucsal.controller.dto.PontoResponse;
 import com.milleddy.movucsal.entity.Ponto;
 import com.milleddy.movucsal.entity.TipoPonto;
+import com.milleddy.movucsal.exceptions.MovUcsalException;
 import com.milleddy.movucsal.service.PontoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +42,7 @@ public class PontoController {
     public ResponseEntity<PontoResponse> getPontoById(@PathVariable int id) {
         var ponto = pontoService.getById(id);
         if (ponto == null) {
-            return ResponseEntity.notFound().build();
+            throw new MovUcsalException("Ponto não encontrado", HttpStatus.NOT_FOUND);
         }
 
         return ResponseEntity.ok(new PontoResponse(ponto));
@@ -50,7 +52,7 @@ public class PontoController {
     public ResponseEntity<List<PontoResponse>> getPontoByTipoPonto(@PathVariable TipoPonto tipo) {
         List<Ponto> pontos = pontoService.getByTipoPonto(tipo);
         if (pontos.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new MovUcsalException(String.format("Pontos do tipo %s não encontrados", tipo), HttpStatus.NOT_FOUND);
         }
 
         return ResponseEntity

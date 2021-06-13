@@ -43,4 +43,24 @@ class AgenteControllerTest {
                 .andExpect(jsonPath("$.pontosVisitados").exists())
                 .andExpect(jsonPath("$.pontosVisitados").isArray());
     }
+
+    @Test
+    void getCaminhoFinalShouldThrowExceptionWhenCaminhoIsNotFound() throws Exception {
+        int pontoInicialId = 1;
+        int pontoFinalId = 4;
+
+        var nodes = new AgenteResponse(Collections.emptyList());
+
+        when(agentService.gerarCaminhoPorAgente(pontoInicialId, pontoFinalId, false))
+                .thenReturn(nodes);
+
+        mockMvc.perform(get("/agente/")
+                .param("pontoInicialId", String.valueOf(pontoInicialId))
+                .param("pontoFinalId", String.valueOf(pontoFinalId))
+                .param("acessivel", "false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.pontosVisitados").exists())
+                .andExpect(jsonPath("$.pontosVisitados").isArray());
+    }
 }
