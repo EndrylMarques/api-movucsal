@@ -59,7 +59,7 @@ public class AgentService {
         System.out.println(iAgent); //path summary (time, nodes visited/expanded)
         System.out.println(finalNode); //final node summary (cost, ??, last visited node)
 
-        return new AgenteResponse(nodes, finalNode);
+        return new AgenteResponse(nodes);
     }
 
     private Estado getEstadoByPontoId(int pontoId) throws NotFoundException {
